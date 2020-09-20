@@ -4,7 +4,7 @@
         <link href = "{{asset('css/app.css')}}" rel = "stylesheet">
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="{{asset('js/app.js')}}" type = "text/javascript"> </script>
+        
         <title> {{$titulo}} </title>
         <meta name = "csrf-token" content = "{{ csrf_token() }}">
         <style>
@@ -22,9 +22,14 @@
             @endcomponent
             <main role = "main">
                 @hasSection('body')
-                @yield('body')
+                    @yield('body')
                 @endif
             </main>
         </div>
     </body>
+    <script src="{{asset('js/app.js')}}" type = "text/javascript"> </script>
+
+    @hasSection('javascript')
+        @yield('javascript')
+    @endif
 </html>

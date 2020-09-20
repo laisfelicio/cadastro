@@ -29,6 +29,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/homepage', function () {
     return view('homepage');
 });
-Route::get('/teste', function () {
-    return view('testes');
+Route::get('/novoProjeto', function () {
+    return view('novoProjeto');
 });
+
+Route::get('/novaTarefa', function () {
+    return view('novaTarefa');
+});
+
+Route::get('/clientes', 'ControladorCliente@indexView');
+Route::get('/projetos', 'ControladorProjeto@indexView');
+

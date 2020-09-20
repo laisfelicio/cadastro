@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Projeto;
-class ControladorProjeto extends Controller
+use App\Cliente;
+class ControladorCliente extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,17 @@ class ControladorProjeto extends Controller
     {
         //
         
-        $projetos = Projeto::all();
-        return $projetos->toJson();
+        $clientes = Cliente::all();
+        return $clientes->toJson();
     }
 
     public function indexView()
     {
         //
-        return view('projetos');
+        return view('clientes');
        
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,14 +45,10 @@ class ControladorProjeto extends Controller
     public function store(Request $request)
     {
         //
-        $proj = new Projeto();
-        $proj->nome = $request->input('nome');
-        $proj->descricao = $request->input('descricao');
-        $proj->cliente_id = $request->input('cliente_id');
-        $proj->status_id = $request->input('status_id');
-        $proj->tempo_gasto = "00:00:00";
-        $proj->save();
-        return json_encode($proj);
+        $cliente = new Cliente();
+        $cliente->nome = $request->input('nome');
+        $cliente->save();
+        return json_encode($cliente);
     }
 
     /**
@@ -63,11 +60,11 @@ class ControladorProjeto extends Controller
     public function show($id)
     {
         //
-        $projeto = Projeto::find($id);
-        if(isset($projeto)){
-            return json_encode($projeto);
+        $cliente = Cliente::find($id);
+        if(isset($cliente)){
+            return json_encode($cliente);
         }
-        return response('Projeto nao encontrado', 404);
+        return response('Cliente nao encontrado', 404);
     }
 
     /**
@@ -79,6 +76,8 @@ class ControladorProjeto extends Controller
     public function edit($id)
     {
         //
+        
+       
     }
 
     /**
@@ -91,17 +90,14 @@ class ControladorProjeto extends Controller
     public function update(Request $request, $id)
     {
         //
-        $projeto = Projeto::find($id);
-        if(isset($projeto)){
-            $projeto->nome = $request->input('nome');
-            $projeto->descricao = $request->input('descricao');
-            $projeto->cliente_id = $request->input('cliente_id');
-            $projeto->status_id = $request->input('status_id');
-            $projeto->tempo_gasto = "00:00:00";
-            $projeto->save();
-            return json_encode($projeto);
+        $cliente = Cliente::find($id);
+        if(isset($cliente)){
+            $cliente->nome = $request->input('nome');
+            $cliente->save();
+            return json_encode($cliente);
         }
-        return response('Projeto nao encontrado', 404);
+        return response('Produto nao encontrado', 404);
+       
     }
 
     /**
@@ -113,11 +109,12 @@ class ControladorProjeto extends Controller
     public function destroy($id)
     {
         //
-        $projeto = Projeto::find($id);
-        if(isset($projeto)){
-            $projeto->delete();
+        $cliente = Cliente::find($id);
+        if(isset($cliente)){
+            $cliente->delete();
             return response('OK', 200);
         }
-        return response('Projeto nao encontrado', 404);
+        return response('Cliente nao encontrado', 404);
+
     }
 }
