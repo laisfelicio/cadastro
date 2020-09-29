@@ -68,6 +68,48 @@
         </div>
     </div>
 </div>
+
+<div class = "modal" tabindex="-1" role = "dialog" id = "dlgUsuarios">
+    <div class = "modal-dialog" role = "document">
+        <div class = "modal-content">
+            <form classs = "form-horizontal" id = "formUsuario">
+                <div class = "modalheader">
+                    <h5 class="modal-title"> Alocar Usuário </h5>
+                </div>
+                <div class = "modal-body">
+                    <input type="hidden" id = "projetoId" class = "form-control">
+                    <div class = "form-group">
+                        <label for="usuarioProjeto" class = "control-label"> Usuário </label>
+                        <div class = "input-group">
+                            <select class = "form-control" id = "usuarioProjeto"> </select>
+                        </div>
+                    </div>
+                </div>
+                <div class = "modal-footer">
+                    <button type = "submit" class = "btn btn-primary"> Alocar </button>
+                    <button type = "cancel" class = "btn btn-secondary" data-dismiss="modal"> Cancelar </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class = "modal" tabindex="-1" role = "dialog" id = "dlgUsuariosAlocados">
+    <div class = "modal-dialog" role = "document">
+        <div class = "modal-content">
+            <table class = "table table-ordered table hover" id = "tabelaUsuarios">
+                <thead>
+                    <th> Código </th>
+                    <th> Nome </th>
+                    <th> E-mail </th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 
@@ -134,6 +176,15 @@
 
     }
 
+    function carregarUsuarios(){
+        $.getJSON('/api/usuarios', function(data){
+            for(i=0; i<data.length;i++){
+                opcao = '<option value = "' + data[i].id + '">' + data[i].nome + '</option>';
+                $('#usuarioProjeto').append(opcao);
+            }
+        });
+    }
+
     function remover(id){
         console.log('apagando');
         $.ajax({
@@ -160,16 +211,19 @@
         "<td>" + p.nome + "</td>" +
         "<td>" + p.descricao + "</td>" +
         "<td>" + p.tempo_gasto + "</td>" +
-        "<td>" + p.cliente_id + "</td>" +
-        "<td>" + p.status_id + "</td>" +
+        "<td>" + p.cliente + "</td>" +
+        "<td>" + p.status + "</td>" +
         "<td>" + 
             '<button class = "btn btn-sm btn-primary" onClick="editar('+p.id+')"> Editar </button> ' + 
+            '<button class = "btn btn-sm btn-primary" onClick="alocarUsuario('+ p.id +')"> Alocar Usuário </button> ' +
+            '<button class = "btn btn-sm btn-primary" onClick="maisInfo('+ p.id +')"> + Info </button> ' +
             '<button class = "btn btn-sm btn-danger" onClick="remover('+ p.id +')"> Apagar </button> ' + 
         "</td>" +
         "</tr>";
 
         return linha;
     }
+
 
     function novoProjeto(){
         $('#id').val('');
@@ -201,8 +255,7 @@
     }
 
     function criarProjeto(){
-        
-        
+
             projeto = {
                 nome: $("#nomeProjeto").val(),
                 descricao: $('#descricaoProjeto').val(),
@@ -233,10 +286,69 @@
             $('#dlgProjetos').modal('show');
         });
     }
+
+    function alocarUsuario(id){
+        $('#dlgUsuarios').modal('show');
+        $('#projetoId').val(id);
+    }
+
+    function salvaAlocacao(){
+        alocacao = {
+            projeto_id: $("#projetoId").val(),
+            usuario_id: $('#usuarioProjeto').val()
+        };
+    
+        
+
+    console.log(alocacao);
+    $.post("api/usuarioprojeto", alocacao, function(data){
+        console.log("depois da ai veio aqui");
+        proj = JSON.parse(data);
+        });
+
+    }
+
+    function maisInfo(id){
+        linhas = $("#tabelaUsuarios>tbody>tr");
+        linhas.remove();
+        console.log('mais info');
+        $.getJSON('/api/usuarioprojeto/' + id, function(projUso){
+            for(i=0;i<projUso.length;i++){
+                linha = montarLinhaTabela(projUso[i]);
+                $('#tabelaUsuarios>tbody').append(linha);
+            }
+            $('#dlgUsuariosAlocados').modal('show');
+        });
+    }
+
+    function montarLinhaTabela(projUsu){
+        var linha = "<tr> " +
+            "<td> " + projUsu.id + "</td>" +
+            "<td>" + projUsu.usuarioNome + "</td>" +
+            "<td>" + projUsu.usuarioEmail + "</td>" +
+            "<td>" + 
+                '<button class = "btn btn-sm btn-danger" onClick="remover('+ projUsu.id +')"> Apagar </button> ' + 
+            "</td>" +
+            "</tr>";
+    
+            return linha;
+    }
+
+    $("#formUsuario").submit(function(event){
+        event.preventDefault();
+        salvaAlocacao();
+        $("#dlgUsuarios").modal('hide');
+       
+    });
+
+
     $(function(){
         carregarProjetos();
         carregarClientes();
+        carregarUsuarios();
 
     })
+
+
 </script>
 @endsection

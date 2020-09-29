@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusProjeto extends Migration
+class AddNomeUsuario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddStatusProjeto extends Migration
      */
     public function up()
     {
-        Schema::table('projetos', function (Blueprint $table) {
+        Schema::table('usuarios', function (Blueprint $table) {
             //
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('status_projetos');
+            $table->string('nome');
         });
     }
 
@@ -27,7 +26,7 @@ class AddStatusProjeto extends Migration
      */
     public function down()
     {
-        Schema::table('projetos', function (Blueprint $table) {
+        Schema::table('usuarios', function (Blueprint $table) {
             //
         });
     }

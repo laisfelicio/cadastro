@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('/clientes', 'ControladorCliente');
 Route::resource('/projetos', 'ControladorProjeto');
+Route::resource('/usuarios', 'ControladorUsuario');
+Route::resource('/times', 'ControladorTime');
+Route::resource('/usuarioprojeto', 'ControladorUsuarioProjeto');
+Route::resource('/tarefas', 'ControladorTarefa');

@@ -39,4 +39,5 @@ Route::get('/novaTarefa', function () {
 
 Route::get('/clientes', 'ControladorCliente@indexView');
 Route::get('/projetos', 'ControladorProjeto@indexView');
-
+Route::get('/usuarios', 'ControladorUsuario@indexView');
+Route::get('/tarefas', 'ControladorTarefa@indexView');

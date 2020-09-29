@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusProjeto extends Migration
+class CreateTarefasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddStatusProjeto extends Migration
      */
     public function up()
     {
-        Schema::table('projetos', function (Blueprint $table) {
-            //
-            $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('status_projetos');
+        Schema::create('tarefas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome');
+            $table->timestamps();
         });
     }
 
@@ -27,8 +27,6 @@ class AddStatusProjeto extends Migration
      */
     public function down()
     {
-        Schema::table('projetos', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tarefas');
     }
 }
