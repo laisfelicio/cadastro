@@ -20,7 +20,7 @@ class CreateTarefaUsuariosTable extends Migration
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->time('tempo_gasto');
-            $table->time('ultimo_start');
+            $table->dateTime('ultimo_start');
             $table->timestamps();
         });
     }

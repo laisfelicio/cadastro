@@ -24,3 +24,5 @@ Route::resource('/usuarios', 'ControladorUsuario');
 Route::resource('/times', 'ControladorTime');
 Route::resource('/usuarioprojeto', 'ControladorUsuarioProjeto');
 Route::resource('/tarefas', 'ControladorTarefa');
+Route::resource('/statustarefas', 'ControladorStatusTarefa');
+Route::resource('/tarefausuarios', 'ControladorTarefaUsuarios');

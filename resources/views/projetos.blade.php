@@ -162,8 +162,8 @@
                     e[0].cells[0].textContent = proj.id;
                     e[0].cells[1].textContent = proj.nome;
                     e[0].cells[2].textContent = proj.descricao;
-                    e[0].cells[4].textContent = proj.cliente_id;
-                    e[0].cells[5].textContent = proj.status_id;
+                    e[0].cells[4].textContent = proj.cliente;
+                    e[0].cells[5].textContent = proj.status;
 
                 }
                 console.log('editou ok');

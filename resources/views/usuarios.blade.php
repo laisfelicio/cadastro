@@ -110,7 +110,7 @@
     function salvarUsuario(){
         usuario = {
             id: $("#id").val(),
-            email: $("#nomeUsuario").val(),
+            nome: $("#nomeUsuario").val(),
             email: $("#emailUsuario").val(),
             senha: $('#senhaUsuario').val(),
             time_id: $('#timeUsuario').val()
@@ -136,7 +136,7 @@
                     e[0].cells[0].textContent = usu.id;
                     e[0].cells[1].textContent = usu.nome;
                     e[0].cells[2].textContent = usu.email;
-                    e[0].cells[3].textContent = usu.time_id;
+                    e[0].cells[3].textContent = usu.time;
 
                 }
                 console.log('editou ok');

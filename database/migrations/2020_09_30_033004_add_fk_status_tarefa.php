@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCamposTarefa extends Migration
+class AddFkStatusTarefa extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,8 @@ class AddCamposTarefa extends Migration
     {
         Schema::table('tarefas', function (Blueprint $table) {
             //
-            $table->integer('projeto_id')->unsigned();
-            $table->foreign('projeto_id')->references('id')->on('projetos');
-            $table->string('descricao');
-            $table->time('tempo_previsto');
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status_tarefas');
         });
     }
 

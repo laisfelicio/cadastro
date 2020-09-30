@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\TarefaUsuarios;
 use Illuminate\Http\Request;
-use App\Tarefa;
-class ControladorTarefa extends Controller
+
+class ControladorTarefaUsuarios extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexView()
-    {
-        //
-        return view('tarefas');
-    }
-
     public function index()
     {
         //
-        $tarefas = Tarefa::all();
-        return $tarefas->toJson();
+        
     }
 
     /**
@@ -43,14 +37,13 @@ class ControladorTarefa extends Controller
     public function store(Request $request)
     {
         //
-        $tarefa = new Tarefa();
-        $tarefa->projeto_id = $request->input('projeto_id');
-        $tarefa->nome = $request->input('nome');
-        $tarefa->descricao = $request->input('descricao');
-        $tarefa->tempo_previsto = $request->input('tempo_previsto');
-        $tarefa->status_id = $request->input('status_id');
-        $tarefa->save();
-        return json_encode($tarefa);
+        $tarefaUsuarios = new TarefaUsuarios();
+        $tarefaUsuarios->tarefa_id = $request->input('tarefa_id');
+        $tarefaUsuarios->usuario_id = $request->input('usuario_id');
+        $tarefaUsuarios->tempo_gasto = "00:00:00";
+        $tarefaUsuarios->ultimo_start = "1900-01-01 00:00:00";
+        $tarefaUsuarios->save();
+        return json_encode($tarefaUsuarios);
     }
 
     /**
@@ -62,11 +55,7 @@ class ControladorTarefa extends Controller
     public function show($id)
     {
         //
-        $tarefa = Tarefa::find($id);
-        if(isset($tarefa)){
-            return json_encode($tarefa);
-        }
-        return response('Tarefa nao encontrado', 404);
+        return TarefaUsuarios::where('tarefa_id', $id)->get()->toJson();
     }
 
     /**
@@ -90,19 +79,6 @@ class ControladorTarefa extends Controller
     public function update(Request $request, $id)
     {
         //
-        $tarefa = Tarefa::find($id);
-        if(isset($tarefa)){
-            $tarefa->projeto_id = $request->input('projeto_id');
-            $tarefa->nome = $request->input('nome');
-            $tarefa->descricao = $request->input('descricao');
-            $tarefa->tempo_previsto = $request->input('tempo_previsto');
-            $tarefa->status_id = $request->input('status_id');
-            $tarefa->save();
-            return json_encode($tarefa);
-        }
-        return response('Tarefa nao encontrado', 404);
-
-
     }
 
     /**
@@ -114,11 +90,11 @@ class ControladorTarefa extends Controller
     public function destroy($id)
     {
         //
-        $tarefa = Tarefa::find($id);
-        if(isset($tarefa)){
-            $tarefa->delete();
+        $tarefaUsu = TarefaUsuarios::find($id);
+        if(isset($tarefaUsu)){
+            $tarefaUsu->delete();
             return response('OK', 200);
         }
-        return response('Tarefa nao encontrado', 404);
+        return response('Tarefa-Usuario nao encontrado', 404);
     }
 }

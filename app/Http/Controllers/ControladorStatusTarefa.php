@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\StatusTarefas;
 use Illuminate\Http\Request;
-use App\Usuario;
-class ControladorUsuario extends Controller
+
+class ControladorStatusTarefa extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +15,8 @@ class ControladorUsuario extends Controller
     public function index()
     {
         //
-        $usuarios = Usuario::all();
-        return $usuarios->toJson();
-    }
-
-    public function indexView()
-    {
-        //
-        return view('usuarios');
-       
+        $status = StatusTarefas::all();
+        return $status->toJson();
     }
 
     /**
@@ -44,13 +38,6 @@ class ControladorUsuario extends Controller
     public function store(Request $request)
     {
         //
-        $usuario = new Usuario();
-        $usuario->nome = $request->input('nome');
-        $usuario->email = $request->input('email');
-        $usuario->senha = $request->input('senha');
-        $usuario->time_id = $request->input('time_id');
-        $usuario->save();
-        return json_encode($usuario);
     }
 
     /**
@@ -62,11 +49,6 @@ class ControladorUsuario extends Controller
     public function show($id)
     {
         //
-        $usuario = Usuario::find($id);
-        if(isset($usuario)){
-            return json_encode($usuario);
-        }
-        return response('Usuario nao encontrado', 404);
     }
 
     /**
@@ -90,16 +72,6 @@ class ControladorUsuario extends Controller
     public function update(Request $request, $id)
     {
         //
-        $usuario = Usuario::find($id);
-        if(isset($usuario)){
-            $usuario->nome = $request->input('nome');
-            $usuario->email = $request->input('email');
-            $usuario->senha = $request->input('senha');
-            $usuario->time_id = $request->input('time_id');
-            $usuario->save();
-            return json_encode($usuario);
-        }
-        return response('Projeto nao encontrado', 404);
     }
 
     /**
@@ -111,11 +83,5 @@ class ControladorUsuario extends Controller
     public function destroy($id)
     {
         //
-        $usuario = Usuario::find($id);
-        if(isset($usuario)){
-            $usuario->delete();
-            return response('OK', 200);
-        }
-        return response('Projeto nao encontrado', 404);
     }
 }
