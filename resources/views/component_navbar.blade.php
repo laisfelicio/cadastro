@@ -7,13 +7,19 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto">
         <li @if($current=="home") class="nav-item active" @else class="nav-item" @endif>
-          <a class="nav-link" href="/">Home </a>
+          <a class="nav-link" href="/homepage">Home </a>
         </li>
         <li @if($current=="projetos") class="nav-item active" @else class="nav-item" @endif>
             <a class="nav-link" href="/projetos">Projetos </a>
          </li>
-          <li @if($current=="categorias") class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/categorias">Categorias </a>
+          <li @if($current=="tarefas") class="nav-item active" @else class="nav-item" @endif>
+            <a class="nav-link" href="/tarefas">Tarefas </a>
+          </li>
+          <li @if($current=="clientes") class="nav-item active" @else class="nav-item" @endif>
+            <a class="nav-link" href="/clientes">Clientes </a>
+          </li>
+          <li @if($current=="usuarios") class="nav-item active" @else class="nav-item" @endif>
+            <a class="nav-link" href="/usuarios">Usuarios </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
